@@ -63,6 +63,9 @@ class CouponViewModel(
     private val _sortBy = MutableStateFlow(SortOption.NEWEST)
     val sortBy = _sortBy.asStateFlow()
 
+    private val _simulationResult = MutableStateFlow<ValidationResult?>(null)
+    val simulationResult: StateFlow<ValidationResult?> = _simulationResult.asStateFlow()
+
     private val _toastMessage = MutableSharedFlow<String>()
     val toastMessage: SharedFlow<String> = _toastMessage.asSharedFlow()
 
@@ -242,6 +245,46 @@ class CouponViewModel(
     fun syncDatabase() {
         val count = repository.syncDatabase()
         emitToast("Synchronized $count coupons with database.")
+    }
+
+    fun simulateValidation(code: String, orderValue: Double, customerId: String, customerEmail: String) {
+        val request = ValidationRequest(
+            code = code,
+            orderValue = orderValue,
+            customerId = customerId,
+            customerEmail = customerEmail
+        )
+        val result = repository.validateCheckout(request)
+        _simulationResult.value = result
+    }
+
+    fun redeemInSimulator(code: String, orderValue: Double, customerId: String, customerEmail: String) {
+        val request = ValidationRequest(
+            code = code,
+            orderValue = orderValue,
+            customerId = customerId,
+            customerEmail = customerEmail
+        )
+        val result = repository.recordRedemption(request)
+        result.fold(
+            onSuccess = {
+                _simulationResult.value = it
+                emitToast("Redeemed! Usage count updated for ${it.code}.")
+            },
+            onFailure = {
+                _simulationResult.value = repository.validateCheckout(request)
+                emitToast(it.message ?: "Redemption failed")
+            }
+        )
+    }
+
+    fun clearSimulation() {
+        _simulationResult.value = null
+    }
+
+    fun resetToDefaults() {
+        repository.resetToSampleCoupons()
+        emitToast("Reset to sample coupons.")
     }
 
     private fun emitToast(msg: String) {

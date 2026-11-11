@@ -165,4 +165,8 @@ class CouponRepository {
         // Simulates server/cloud database sync
         return _coupons.value.size
     }
+
+    fun resetToSampleCoupons() {
+        _coupons.value = SampleCoupons.getInitialCoupons()
+    }
 }

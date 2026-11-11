@@ -25,8 +25,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.LocalOffer
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -57,9 +60,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.couponcraft.model.Coupon
+import com.example.couponcraft.ui.components.CheckoutSimulatorDialog
 import com.example.couponcraft.ui.components.CouponCard
 import com.example.couponcraft.ui.components.CouponDialog
 import com.example.couponcraft.ui.components.DeleteConfirmDialog
+import com.example.couponcraft.ui.components.SummaryStatsRow
 import com.example.couponcraft.ui.theme.BgWarm
 import com.example.couponcraft.ui.theme.Emerald600
 import com.example.couponcraft.ui.theme.Emerald700
@@ -88,6 +93,8 @@ fun CouponListScreen(
     val statusFilter by viewModel.statusFilter.collectAsState()
     val typeFilter by viewModel.typeFilter.collectAsState()
     val sortBy by viewModel.sortBy.collectAsState()
+
+    val simulationResult by viewModel.simulationResult.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -125,6 +132,7 @@ fun CouponListScreen(
                     }
                 },
                 actions = {
+                    // Single Sync Button
                     IconButton(
                         onClick = { viewModel.syncDatabase() },
                         modifier = Modifier.testTag("sync_db_button")
@@ -160,26 +168,31 @@ fun CouponListScreen(
         ) {
             // Search Bar with Rounded Corners & Example Text
             item {
-                OutlinedTextField(
-                    value = searchQuery,
-                    onValueChange = { viewModel.setSearchQuery(it) },
-                    placeholder = { Text("Search coupons (e.g. WELCOME15, SAVE25)...", fontSize = 13.sp) },
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Stone400)
-                    },
-                    trailingIcon = {
-                        if (searchQuery.isNotEmpty()) {
-                            IconButton(onClick = { viewModel.setSearchQuery("") }) {
-                                Icon(imageVector = Icons.Default.Close, contentDescription = "Clear", tint = Stone500)
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    OutlinedTextField(
+                        value = searchQuery,
+                        onValueChange = { viewModel.setSearchQuery(it) },
+                        placeholder = { Text("Search coupons...", fontSize = 13.sp) },
+                        leadingIcon = {
+                            Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Stone400)
+                        },
+                        trailingIcon = {
+                            if (searchQuery.isNotEmpty()) {
+                                IconButton(onClick = { viewModel.setSearchQuery("") }) {
+                                    Icon(imageVector = Icons.Default.Close, contentDescription = "Clear", tint = Stone500)
+                                }
                             }
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag("coupon_search_input"),
-                    shape = CircleShape,
-                    singleLine = true
-                )
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(0.75f)
+                            .testTag("coupon_search_input"),
+                        shape = CircleShape,
+                        singleLine = true
+                    )
+                }
             }
 
             // Filter Chips (Status & Type)
