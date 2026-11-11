@@ -1,6 +1,6 @@
 {
-  "name": "CouponCraft - E-Commerce Coupon Management",
-  "description": "The Street Co official coupon management system. Create percentage and flat discounts with custom usage limits, order value rules, and MongoDB integration for high-speed checkout validation.",
+  "name": "CouponCraft",
+  "description": "CouponCraft coupon management and promotions platform. Create, edit, and validate percentage and flat discount vouchers with custom usage limits, order value rules, and checkout validation.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

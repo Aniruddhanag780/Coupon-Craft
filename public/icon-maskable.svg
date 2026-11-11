@@ -1,61 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <defs>
-    <linearGradient id="maskable-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#292524"/>
-      <stop offset="100%" stop-color="#0c0a09"/>
-    </linearGradient>
-  </defs>
+  <!-- Same Background Color as App (#FAF8F5) -->
+  <rect width="512" height="512" fill="#FAF8F5"/>
 
-  <!-- Full-bleed background for maskable safe zone -->
-  <rect width="512" height="512" fill="url(#maskable-bg)"/>
-
-  <!-- Centered safe zone coupon ticket (scaled to fit well within 80% diameter) -->
-  <g transform="translate(96, 156) scale(0.83)">
-    <!-- Ticket Body: 384 wide, 240 high with left/right semicircular notches -->
-    <path d="
-      M 32,0 
-      H 352 
-      A 32,32 0 0,1 384,32 
-      V 88 
-      A 32,32 0 0,0 352,120 
-      A 32,32 0 0,0 384,152 
-      V 208 
-      A 32,32 0 0,1 352,240 
-      H 32 
-      A 32,32 0 0,1 0,208 
-      V 152 
-      A 32,32 0 0,0 32,120 
-      A 32,32 0 0,0 0,88 
-      V 32 
-      A 32,32 0 0,1 32,0 
-      Z" 
-      fill="#FAF8F5" 
-    />
-
-    <!-- Dashed Tear Line -->
-    <line x1="250" y1="18" x2="250" y2="222" stroke="#D6D3D1" stroke-width="4" stroke-dasharray="10 10" stroke-linecap="round"/>
-
-    <!-- Left: Percent symbol -->
-    <g transform="translate(125, 120)">
-      <line x1="-36" y1="40" x2="36" y2="-40" stroke="#1C1917" stroke-width="14" stroke-linecap="round"/>
-      <circle cx="-22" cy="-24" r="15" fill="none" stroke="#1C1917" stroke-width="11"/>
-      <circle cx="22" cy="24" r="15" fill="none" stroke="#1C1917" stroke-width="11"/>
-    </g>
-
-    <!-- Right: Voucher lines and barcode -->
-    <rect x="276" y="44" width="68" height="12" rx="6" fill="#1C1917"/>
-    <rect x="276" y="66" width="46" height="8" rx="4" fill="#A8A29E"/>
-
-    <g transform="translate(276, 96)">
-      <rect x="0" y="0" width="4" height="52" fill="#1C1917" rx="2"/>
-      <rect x="8" y="0" width="8" height="52" fill="#1C1917" rx="2"/>
-      <rect x="20" y="0" width="3" height="52" fill="#1C1917" rx="1.5"/>
-      <rect x="27" y="0" width="6" height="52" fill="#1C1917" rx="2"/>
-      <rect x="37" y="0" width="9" height="52" fill="#1C1917" rx="2"/>
-      <rect x="50" y="0" width="4" height="52" fill="#1C1917" rx="2"/>
-      <rect x="58" y="0" width="10" height="52" fill="#1C1917" rx="2"/>
-    </g>
-
-    <rect x="276" y="162" width="68" height="8" rx="4" fill="#D6D3D1"/>
+  <!-- Centered Black (#1C1917) Coupon Tag Icon in safe zone -->
+  <g transform="translate(256, 256) scale(9.5) translate(-12, -12)">
+    <path fill="#1C1917" d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
   </g>
 </svg>

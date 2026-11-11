@@ -1,73 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <defs>
-    <!-- Background Gradient for high contrast -->
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#292524"/>
-      <stop offset="100%" stop-color="#0c0a09"/>
-    </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
-    </filter>
-  </defs>
+  <!-- Same Background Color as App (#FAF8F5) -->
+  <rect width="512" height="512" rx="112" fill="#FAF8F5"/>
+  <rect width="508" height="508" x="2" y="2" rx="110" fill="none" stroke="#E5E0D8" stroke-width="4"/>
 
-  <!-- App Icon Base -->
-  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-
-  <!-- Coupon Ticket Outer Shadow & Body -->
-  <g filter="url(#shadow)" transform="translate(64, 120)">
-    <!-- Ticket Body: 384 wide, 272 high with left/right semicircular notches -->
-    <path d="
-      M 32,0 
-      H 352 
-      A 32,32 0 0,1 384,32 
-      V 104 
-      A 32,32 0 0,0 352,136 
-      A 32,32 0 0,0 384,168 
-      V 240 
-      A 32,32 0 0,1 352,272 
-      H 32 
-      A 32,32 0 0,1 0,240 
-      V 168 
-      A 32,32 0 0,0 32,136 
-      A 32,32 0 0,0 0,104 
-      V 32 
-      A 32,32 0 0,1 32,0 
-      Z" 
-      fill="#FAF8F5" 
-    />
-
-    <!-- Dashed Tear / Perforation Line -->
-    <line x1="256" y1="20" x2="256" y2="252" stroke="#D6D3D1" stroke-width="4" stroke-dasharray="10 10" stroke-linecap="round"/>
-
-    <!-- Left Section: Large Percent / Discount Badge -->
-    <g transform="translate(128, 136)">
-      <!-- Percentage Diagonal Stroke -->
-      <line x1="-38" y1="42" x2="38" y2="-42" stroke="#1C1917" stroke-width="14" stroke-linecap="round"/>
-      <!-- Upper Left Dot Circle -->
-      <circle cx="-24" cy="-26" r="16" fill="none" stroke="#1C1917" stroke-width="12"/>
-      <!-- Lower Right Dot Circle -->
-      <circle cx="24" cy="26" r="16" fill="none" stroke="#1C1917" stroke-width="12"/>
-    </g>
-
-    <!-- Right Section: Coupon Voucher Details & Barcode -->
-    <!-- Brand / Voucher Heading -->
-    <rect x="282" y="52" width="68" height="12" rx="6" fill="#1C1917"/>
-    <rect x="282" y="74" width="46" height="8" rx="4" fill="#A8A29E"/>
-
-    <!-- Barcode Stripes on Right Stub -->
-    <g transform="translate(282, 110)">
-      <rect x="0" y="0" width="4" height="60" fill="#1C1917" rx="2"/>
-      <rect x="8" y="0" width="8" height="60" fill="#1C1917" rx="2"/>
-      <rect x="20" y="0" width="3" height="60" fill="#1C1917" rx="1.5"/>
-      <rect x="27" y="0" width="6" height="60" fill="#1C1917" rx="2"/>
-      <rect x="37" y="0" width="9" height="60" fill="#1C1917" rx="2"/>
-      <rect x="50" y="0" width="4" height="60" fill="#1C1917" rx="2"/>
-      <rect x="58" y="0" width="10" height="60" fill="#1C1917" rx="2"/>
-    </g>
-
-    <rect x="282" y="184" width="68" height="8" rx="4" fill="#D6D3D1"/>
+  <!-- Solid Black (#1C1917) Coupon Tag Icon matching home page -->
+  <g transform="translate(256, 256) scale(11) translate(-12, -12)">
+    <!-- Tag Body -->
+    <path fill="#1C1917" d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
   </g>
-
-  <!-- Small star accent -->
-  <polygon points="400,90 405,102 417,104 408,112 411,124 400,117 389,124 392,112 383,104 395,102" fill="#FAF8F5" opacity="0.8"/>
 </svg>

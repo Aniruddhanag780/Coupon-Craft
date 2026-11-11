@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CouponCraft</string>
+    <string name="coupons_title">Coupons</string>
+    <string name="search_placeholder">Search coupons by code or name…</string>
+    <string name="create_coupon">Create Coupon</string>
+    <string name="checkout_simulator">Checkout Simulator</string>
+    <string name="sync_button">Sync Database</string>
+</resources>
