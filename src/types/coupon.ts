@@ -33,6 +33,7 @@ export interface Coupon {
   createdAt: string;
   updatedAt: string;
   description?: string;
+  source?: string;
 }
 
 export interface CouponFormData {

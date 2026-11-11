@@ -105,6 +105,7 @@ class DatabaseService {
       createdAt,
       updatedAt,
       description,
+      source: doc.source || 'CouponCraft',
     };
   }
 
@@ -201,7 +202,7 @@ class DatabaseService {
       desc: data.description?.trim() || '',
       description: data.description?.trim() || '',
       couponText: data.description?.trim() || '',
-      source: 'couponcraft_mongodb',
+      source: 'CouponCraft',
       isPublic: true,
       createdAt: now,
       updatedAt: now,
@@ -263,6 +264,7 @@ class DatabaseService {
       desc: data.description !== undefined ? data.description.trim() : existing.description,
       description: data.description !== undefined ? data.description.trim() : existing.description,
       couponText: data.description !== undefined ? data.description.trim() : existing.description,
+      source: 'CouponCraft',
       updatedAt: now,
     };
 
@@ -325,6 +327,37 @@ class DatabaseService {
     }
     this.writeLocalCoupons([]);
     return { deletedCount };
+  }
+
+  public async syncWithMongoDB(): Promise<{ syncedCount: number; connected: boolean; message: string }> {
+    try {
+      if (!this.isConnected || !this.collection) {
+        await this.init();
+      }
+
+      if (this.isConnected && this.collection) {
+        // Ensure all coupons in MongoDB have source as 'CouponCraft'
+        await this.collection.updateMany(
+          { $or: [{ source: { $exists: false } }, { source: { $ne: 'CouponCraft' } }] },
+          { $set: { source: 'CouponCraft' } }
+        );
+        const count = await this.collection.countDocuments();
+        return {
+          syncedCount: count,
+          connected: true,
+          message: `Successfully synchronized ${count} coupon${count === 1 ? '' : 's'} with MongoDB. Source set to 'CouponCraft'.`,
+        };
+      }
+    } catch (err: any) {
+      console.error('[Database] Sync error:', err);
+    }
+
+    const local = this.readLocalCoupons();
+    return {
+      syncedCount: local.length,
+      connected: false,
+      message: 'MongoDB is currently not reachable; synchronized with local store.',
+    };
   }
 
   public async recordRedemption(params: {

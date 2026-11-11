@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import http from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
@@ -156,6 +157,23 @@ async function startServer() {
     }
   });
 
+  // Sync all coupons with MongoDB
+  app.post('/api/coupons/sync', async (_req: Request, res: Response) => {
+    try {
+      const result = await dbService.syncWithMongoDB();
+      const coupons = await dbService.getAllCoupons();
+      res.json({
+        success: true,
+        message: result.message,
+        syncedCount: result.syncedCount,
+        connected: result.connected,
+        coupons,
+      });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  });
+
   // Fast Checkout Validation API (Used by e-commerce checkout & simulator)
   app.post('/api/coupons/validate', async (req: Request, res: Response) => {
     try {
@@ -228,10 +246,17 @@ async function startServer() {
   // Vite Integration (Dev) vs Static Files (Prod)
   // ---------------------------------------------------------------------------
 
+  const httpServer = http.createServer(app);
+
   if (!isProduction) {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: {
+          server: httpServer,
+        },
+      },
       appType: 'spa',
     });
     app.use(vite.middlewares);
@@ -242,8 +267,8 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[Server] The Street Co Coupon Management server running on http://0.0.0.0:${PORT}`);
+  httpServer.listen(PORT, '0.0.0.0', () => {
+    console.log(`[Server] CouponCraft server running on http://0.0.0.0:${PORT}`);
   });
 }
 

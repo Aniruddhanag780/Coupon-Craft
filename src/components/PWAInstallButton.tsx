@@ -57,12 +57,12 @@ export const PWAInstallButton: React.FC = () => {
               <div className="flex items-center gap-3">
                 <img
                   src="/pwa-192x192.png"
-                  alt="The Street Co Coupon Icon"
+                  alt="CouponCraft Icon"
                   className="w-12 h-12 rounded-2xl shadow-sm border border-stone-200 object-cover"
                 />
                 <div>
                   <h3 className="font-bold text-base text-stone-900 leading-snug">
-                    Install The Street Co App
+                    Install CouponCraft App
                   </h3>
                   <p className="text-xs text-stone-500">
                     Add shortcut to your phone home screen
@@ -132,7 +132,7 @@ export const PWAInstallButton: React.FC = () => {
                       3
                     </div>
                     <div className="pt-0.5">
-                      Confirm installation. The Street Co coupon icon will be placed directly on your phone home screen!
+                      Confirm installation. CouponCraft coupon icon will be placed directly on your phone home screen!
                     </div>
                   </div>
                 </div>

@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "The Street Co - Coupon Management",
-  "short_name": "TheStreetCo",
-  "description": "Official Coupon & Promotions Management App for The Street Co.",
+  "name": "CouponCraft - Coupon Management",
+  "short_name": "CouponCraft",
+  "description": "CouponCraft - Coupon & Promotions Management App with MongoDB integration.",
   "theme_color": "#FAF8F5",
   "background_color": "#FAF8F5",
   "display": "standalone",

@@ -37,6 +37,8 @@ export default function App() {
   const [editingCoupon, setEditingCoupon] = useState<Coupon | null>(null);
   const [deletingCoupon, setDeletingCoupon] = useState<Coupon | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [lastSyncedAt, setLastSyncedAt] = useState<Date | null>(null);
 
   // Toast feedback
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
@@ -71,6 +73,29 @@ export default function App() {
   useEffect(() => {
     fetchCoupons();
   }, [fetchCoupons]);
+
+  // Sync all coupons with MongoDB
+  const handleSyncWithMongoDB = async () => {
+    try {
+      setIsSyncing(true);
+      const res = await fetch('/api/coupons/sync', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to sync with MongoDB');
+      }
+      if (Array.isArray(data.coupons)) {
+        setCoupons(data.coupons);
+      }
+      setLastSyncedAt(new Date());
+      showToast(data.message || `Synchronized ${data.syncedCount ?? 0} coupons with MongoDB.`);
+    } catch (err: any) {
+      showToast(err.message || 'Error syncing with MongoDB.', 'error');
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   // Handle Save (Create or Edit)
   const handleSaveCoupon = async (data: CouponFormData) => {
@@ -211,6 +236,9 @@ export default function App() {
           setEditingCoupon(null);
           setIsCreateModalOpen(true);
         }}
+        onSync={handleSyncWithMongoDB}
+        isSyncing={isSyncing}
+        lastSyncedAt={lastSyncedAt}
       />
 
       {/* Main Content Area */}
@@ -525,10 +553,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2 font-medium text-stone-700">
             <span className="w-2 h-2 rounded-full bg-stone-900" />
-            <span>The Street Co &bull; Coupon Management</span>
+            <span>CouponCraft &bull; Coupon Management</span>
           </div>
           <div className="text-stone-400 text-xs">
-            Direct MongoDB Real-time Sync &bull; Mobile Phone Shortcut Ready
+            MongoDB Source: <span className="text-stone-600 font-medium">CouponCraft</span> &bull; Real-time Sync &bull; Mobile Ready
           </div>
         </div>
       </footer>

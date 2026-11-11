@@ -3,19 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Street Co - Coupon Management</title>
-    <meta name="description" content="Official coupon management and promotions platform for The Street Co. Create, edit, and synchronize percentage and flat discount vouchers directly with MongoDB." />
-    <meta property="og:title" content="The Street Co - Coupon Management" />
-    <meta property="og:description" content="Official coupon management and promotions platform for The Street Co. Create, edit, and synchronize percentage and flat discount vouchers directly with MongoDB." />
+    <title>CouponCraft - Coupon Management</title>
+    <meta name="description" content="CouponCraft - Coupon management and promotions platform. Create, edit, and synchronize percentage and flat discount vouchers directly with MongoDB with source The Street Co." />
+    <meta property="og:title" content="CouponCraft - Coupon Management" />
+    <meta property="og:description" content="CouponCraft - Coupon management and promotions platform. Create, edit, and synchronize percentage and flat discount vouchers directly with MongoDB with source The Street Co." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <script>
+      // Gracefully handle Vite HMR WebSocket closed notice in AI Studio preview iframe where HMR is disabled
+      window.addEventListener('unhandledrejection', function(event) {
+        var reason = event.reason;
+        var msg = (reason && (reason.message || reason.stack || String(reason))) || '';
+        if (msg.indexOf('WebSocket') !== -1 || msg.indexOf('websocket') !== -1 || msg.indexOf('@vite/client') !== -1) {
+          event.preventDefault();
+        }
+      });
+      window.addEventListener('error', function(event) {
+        var msg = (event && (event.message || '')) || '';
+        if (msg.indexOf('WebSocket') !== -1 || msg.indexOf('websocket') !== -1 || msg.indexOf('@vite/client') !== -1) {
+          event.preventDefault();
+        }
+      });
+    </script>
 
     <!-- Mobile & PWA Shortcut Configuration -->
     <meta name="theme-color" content="#FAF8F5" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="TheStreetCo" />
+    <meta name="apple-mobile-web-app-title" content="CouponCraft" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
